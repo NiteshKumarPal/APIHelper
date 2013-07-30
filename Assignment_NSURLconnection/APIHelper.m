@@ -20,21 +20,41 @@
     return [super init];
 }
 
-- (void)apiCallWithURL:(NSString *)url withParameters:(NSDictionary *)parameters withLoadingText:(NSString *)text withView:(UIView *)view{
+- (void)apiCallWithURL:(NSString *)url withParameters:(NSString *)parameterString withLoadingText:(NSString *)text withView:(UIView *)view{
     //show loading
     if(showProgress){
         [self showLoadingWithLabel:text withView:view];
     }
     
     NSLog(@"in helper class");
-    NSURLRequest *request=[NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    self.connection=[NSURLConnection connectionWithRequest:request delegate:self];
-    
-    if(self.connection){
-        self.bufferData=[[NSMutableData alloc] init];
-        [self.connection start];
+    if(parameterString){
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+        NSMutableData *postData=[NSMutableData data];
+        [postData appendData:[parameterString dataUsingEncoding:NSUTF8StringEncoding]];
+        [request setHTTPMethod:@"POST"];
+        [request setValue:[NSString stringWithFormat:@"%d", [postData length]] forHTTPHeaderField:@"Content-Length"];
+        [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [request setHTTPBody:postData];
+        
+        self.connection=[NSURLConnection connectionWithRequest:request delegate:self];
+        if(self.connection){
+            self.bufferData=[[NSMutableData alloc] init];
+            [self.connection start];
+        }else{
+            NSLog(@"Connection failed");
+        }
+        
+        
     }else{
-        NSLog(@"Connection failed");
+        NSURLRequest *request=[NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+        self.connection=[NSURLConnection connectionWithRequest:request delegate:self];
+        
+        if(self.connection){
+            self.bufferData=[[NSMutableData alloc] init];
+            [self.connection start];
+        }else{
+            NSLog(@"Connection failed");
+        }
     }
 }
 
