@@ -18,5 +18,5 @@
 @property (nonatomic,retain) MBProgressHUD *progress;
 @property bool showProgress;
 
-- (void)apiCallWithURL:(NSString *)url withParameters:(NSDictionary *)parameters withLoadingText:(NSString *)text withView:(UIView *)view;
+- (void)apiCallWithURL:(NSString *)url withParameters:(NSString *)parameterString withLoadingText:(NSString *)text withView:(UIView *)view;
 @end

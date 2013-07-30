@@ -88,6 +88,7 @@
 		59D5D71317A174F3009C953F /* APIHelper */ = {
 			isa = PBXGroup;
 			children = (
+				59D5D71417A17510009C953F /* MBProgressHUD */,
 				59D8E67617966CAA00F6CAC8 /* APIHelper.h */,
 				59D8E67717966CAA00F6CAC8 /* APIHelper.m */,
 				59D8E6791796700200F6CAC8 /* APIHelperDelegate.h */,
@@ -135,7 +136,6 @@
 		59D88A3F179437480025CFDB /* Assignment_NSURLconnection */ = {
 			isa = PBXGroup;
 			children = (
-				59D5D71417A17510009C953F /* MBProgressHUD */,
 				59D5D71317A174F3009C953F /* APIHelper */,
 				59D88A48179437480025CFDB /* AppDelegate.h */,
 				59D88A49179437480025CFDB /* AppDelegate.m */,
